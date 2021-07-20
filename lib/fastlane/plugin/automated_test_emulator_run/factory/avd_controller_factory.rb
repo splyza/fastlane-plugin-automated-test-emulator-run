@@ -28,7 +28,6 @@ module Fastlane
           sh_create_avd = "create avd"
           sh_create_avd_name = ["--name \"", avd_scheme.avd_name, "\""].join("")
           sh_create_avd_package = ["--package \"", avd_scheme.create_avd_package, "\""].join("")
-          sh_dev_null = def (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil ? '/dev/null' : 'NUL'
 
           if avd_scheme.create_avd_device.eql? "" 
             sh_create_avd_device = ""
@@ -86,7 +85,7 @@ module Fastlane
             sh_create_avd_additional_options].join(" ")
 
           avd_controller.output_file = Tempfile.new('emulator_output')
-          avd_output = File.exists?(avd_controller.output_file) ? ["&>", avd_controller.output_file.path, "&"].join("") : "&>#{sh_dev_null} &"
+          avd_output = File.exists?(avd_controller.output_file) ? ["&>", avd_controller.output_file.path, "&"].join("") : "&>/dev/null &"
           
           avd_controller.command_start_avd = [
            sh_launch_emulator_binary, 
@@ -121,7 +120,7 @@ module Fastlane
            sh_specific_device,
            sh_device_name_adb,
            sh_kill_device,
-           "&>#{sh_dev_null}"].join(" ")
+           "&>/dev/null"].join(" ")
 
           return avd_controller
         end 

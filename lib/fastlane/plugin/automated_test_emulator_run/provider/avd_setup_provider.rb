@@ -89,9 +89,7 @@ module Fastlane
           for i in 0...avd_scheme_list.length
             
             while port < max_port  do
-              dev_null = def (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil ? '/dev/null' : 'NUL'
-
-              if !system("lsof -i:#{port}", out: dev_null)
+              if !system("lsof -i:#{port}", out: '/dev/null')
 
                 is_port_reserved = false
                 for j in 0...reserved_ports.length 
