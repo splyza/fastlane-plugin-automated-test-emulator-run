@@ -121,7 +121,7 @@ module Fastlane
            sh_specific_device,
            sh_device_name_adb,
            sh_kill_device,
-           "&>#{sh_dev_null"].join(" ")
+           "&>#{sh_dev_null}"].join(" ")
 
           return avd_controller
         end 
